@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "542539807228",
+    "project_id": "masckota-189a2",
+    "storage_bucket": "masckota-189a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542539807228:android:a78bdce2f4ee01e85f9a79",
+        "android_client_info": {
+          "package_name": "com.example.masckota_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542539807228-d754hiclh9aei3kp03790k6bmdedp6qg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOZb8bY6RLgbm7_JjcKfi0HDcbrkP7Fvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542539807228-d754hiclh9aei3kp03790k6bmdedp6qg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542539807228:android:d6f0b43d8626451e5f9a79",
+        "android_client_info": {
+          "package_name": "com.example.masckota_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542539807228-d754hiclh9aei3kp03790k6bmdedp6qg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOZb8bY6RLgbm7_JjcKfi0HDcbrkP7Fvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542539807228-d754hiclh9aei3kp03790k6bmdedp6qg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
