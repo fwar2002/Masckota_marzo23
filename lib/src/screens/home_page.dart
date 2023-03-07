@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage>{
     {"id": 4, "image_path": 'lib/src/assets/images/jornadas_adopcion.jpg'}
   ];
 
+
   final CarouselController carouselController = CarouselController();
   int currentIndex = 0;
 
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage>{
             ),
           ),
           Positioned(
-            bottom: 9,
+            bottom: 8,
             left: 0,
             right: 0,
             child: Row(
