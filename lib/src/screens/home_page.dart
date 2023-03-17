@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:masckota_v2/src/screens/register_page.dart';
 import 'package:masckota_v2/src/screens/login_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:masckota_v2/src/components/horizontal_listview.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({key}) : super(key: key);
 
@@ -35,14 +37,39 @@ class _HomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context){
+    Widget image_carousel = new CarouselSlider(
+      items: imageList.map((item) => Image.asset(
+        item['image_path'],
+        fit: BoxFit.cover,
+        width: double.infinity,
+      ),
+      ).toList(),
+      carouselController: carouselController,
+      options: CarouselOptions(
+          scrollPhysics: const BouncingScrollPhysics(),
+          autoPlay: true,
+          aspectRatio: 2,
+          viewportFraction: 1,
+          onPageChanged: (index, reason) {
+            setState((){
+              currentIndex = index;
+            });
+          }
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepOrange,
         title: Text('Masckota APP'),
         actions: <Widget>[
           IconButton(
-              onPressed: (){},
-              icon: Icon(Icons.search, color: Colors.white)
+              onPressed: (){
+                showSearch(
+                    context: context,
+                    delegate: CustomSearchDelegate(),
+                );
+              },
+              icon: Icon(Icons.search, color: Colors.white),
           ),
           IconButton(
               onPressed: (){},
@@ -50,7 +77,35 @@ class _HomePageState extends State<HomePage>{
           ),
         ],
       ),
-      body: Column(
+
+     /* body: Expanded(
+        child: GridView.count(
+          mainAxisSpacing: 10,
+          crossAxisCount: 2,
+          children: <Widget>[
+            Card(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.network('lib/src/assets/images/categories/categories-dog.png'),
+                  Text('Perros')
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),*/
+      body: ListView(
+        children:  <Widget>[
+          //image_carousel,     "Desativado  el 16.03.2023 FG
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: new Text('Categorías'),
+          ),
+          HorizontalList(),
+        ],
+      ),
+      /*body: Column(
         children: [
           InkWell(
             onTap: (){
@@ -77,7 +132,9 @@ class _HomePageState extends State<HomePage>{
               ),
             ),
           ),
-          Positioned(
+
+
+          /*Positioned( - Comentado porque genera error (Fecha: 10.03.2023)
             bottom: 8,
             left: 0,
             right: 0,
@@ -104,18 +161,11 @@ class _HomePageState extends State<HomePage>{
                   );
               }).toList(),
             ),
-          ),
-          /*ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              Padding(padding: const EdgeInsets.all(8.0),
-                child: new Text('Categorias'),
-              ),
-              //HorizontalList(),
-            ],
           ),*/
         ],
-      ),
+      ),*/
+
+//------------------------------------ MENU ---------------------------------//
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -195,6 +245,79 @@ class _HomePageState extends State<HomePage>{
   }
 }
 
-/*class HorizontalList extends StatelessWidget{
+class CustomSearchDelegate extends SearchDelegate{
+  List<String> searchTerms = [
+    'Perros',
+    'Gatos',
+    'Peces',
+    'Aves',
+  ];
+//------------------- Estilos del APP BAR ------------------------------------//
+  @override
+  TextStyle? get searchFieldStyle => const TextStyle(fontSize: 18,);
 
-}*/
+  @override
+  String? get searchFieldLabel => 'Buscar';
+
+  @override
+  List<Widget> buildActions(BuildContext context){
+    return[
+      IconButton(
+          onPressed: (){
+            query = '';
+          },
+          icon: Icon(Icons.clear),
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context){
+    return IconButton(
+        onPressed: (){
+          close(context, null);
+        },
+        icon: Icon(Icons.arrow_back),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+
+    for (var categories in searchTerms) {
+      if (categories.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(categories);
+      }
+    }
+    return ListView.builder(
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index){
+          var result = matchQuery[index];
+          return ListTile(
+            title: Text(result),
+          );
+        },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context){
+    List<String> matchQuery = [];
+
+    for (var categories in searchTerms) {
+      if (categories.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(categories);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index){
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
+  }
+}
