@@ -9,6 +9,7 @@ import 'package:masckota_v2/src/screens/splash_page.dart';
 import 'package:masckota_v2/src/screens/forget_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,18 @@ class MyApp extends StatelessWidget{
     return MaterialApp(
       title: 'Masckota APP',
       initialRoute: "/",
+
       theme: ThemeData(
+      /*textTheme: GoogleFonts.robotoTextTheme(
+        Theme.of(context).textTheme,
+      ),*/
+        /*textTheme: GoogleFonts.latoTextTheme(
+          Theme.of(context).textTheme,
+        ),*/
+        textTheme: GoogleFonts.mulishTextTheme(
+          Theme.of(context).textTheme,
+        ),
+        //fontFamily: 'sacramento',
         brightness: Brightness.light,
         primaryColor: Colors.deepOrange,
         accentColor: Colors.deepOrangeAccent,

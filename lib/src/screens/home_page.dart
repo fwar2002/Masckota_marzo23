@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:masckota_v2/src/components/categories_listview.dart';
 import 'package:masckota_v2/src/screens/register_page.dart';
 import 'package:masckota_v2/src/screens/login_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:masckota_v2/src/components/horizontal_listview.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({key}) : super(key: key);
@@ -15,10 +18,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>{
   List imageList = [
-    {"id": 1, "image_path": 'lib/src/assets/images/productos_ofertas.jpg'},
-    {"id": 2, "image_path": 'lib/src/assets/images/pet-food-blog-.jpg'},
-    {"id": 3, "image_path": 'lib/src/assets/images/mascotas_varias2.jpg'},
-    {"id": 4, "image_path": 'lib/src/assets/images/jornadas_adopcion.jpg'}
+    {"id": 1, "image_path": 'lib/src/assets/images/carousel_one.jpg'},
+    {"id": 2, "image_path": 'lib/src/assets/images/carousel_two.jpg'},
+    {"id": 3, "image_path": 'lib/src/assets/images/carousel_three.jpg'},
+    {"id": 4, "image_path": 'lib/src/assets/images/carousel_four.jpg'}
   ];
 
 
@@ -33,11 +36,16 @@ class _HomePageState extends State<HomePage>{
     });
   }
 
+  @override
+  void signout(){
+    FirebaseAuth.instance.signOut();
+  }
+
   final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context){
-    Widget image_carousel = new CarouselSlider(
+    Widget imageCarousel = CarouselSlider(
       items: imageList.map((item) => Image.asset(
         item['image_path'],
         fit: BoxFit.cover,
@@ -58,9 +66,13 @@ class _HomePageState extends State<HomePage>{
       ),
     );
     return Scaffold(
+      backgroundColor: Colors.grey[100],
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
-        title: Text('Masckota APP'),
+        iconTheme: IconThemeData(color: Colors.deepOrange),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        //title: const Text('Masckota APP'),
         actions: <Widget>[
           IconButton(
               onPressed: (){
@@ -69,102 +81,119 @@ class _HomePageState extends State<HomePage>{
                     delegate: CustomSearchDelegate(),
                 );
               },
-              icon: Icon(Icons.search, color: Colors.white),
+              icon: Icon(Icons.search, color: Colors.deepOrange),
           ),
           IconButton(
               onPressed: (){},
-              icon: Icon(Icons.shopping_cart, color: Colors.white)
+              icon: Icon(Icons.shopping_cart, color: Colors.deepOrange)
           ),
         ],
       ),
 
-     /* body: Expanded(
-        child: GridView.count(
-          mainAxisSpacing: 10,
-          crossAxisCount: 2,
-          children: <Widget>[
-            Card(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.network('lib/src/assets/images/categories/categories-dog.png'),
-                  Text('Perros')
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),*/
       body: ListView(
         children:  <Widget>[
-          //image_carousel,     "Desativado  el 16.03.2023 FG
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: new Text('Categorías'),
-          ),
-          HorizontalList(),
-        ],
-      ),
-      /*body: Column(
-        children: [
-          InkWell(
-            onTap: (){
-              print(currentIndex);
-            },
-            child: CarouselSlider(
-              items: imageList.map((item) => Image.asset(
-                item['image_path'],
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
-              ).toList(),
-              carouselController: carouselController,
-              options: CarouselOptions(
-                scrollPhysics: const BouncingScrollPhysics(),
-                autoPlay: true,
-                aspectRatio: 2,
-                viewportFraction: 1,
-                onPageChanged: (index, reason) {
-                  setState((){
-                    currentIndex = index;
-                  });
-                }
-              ),
+          SizedBox(
+            height: 195,
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  width: 385,
+                  child: imageCarousel,
+                  /*child: TextFormField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      hintText: 'Buscar',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                  ),*/
+                ),
+              ],
             ),
           ),
-
-
-          /*Positioned( - Comentado porque genera error (Fecha: 10.03.2023)
-            bottom: 8,
-            left: 0,
-            right: 0,
+          SizedBox(
+            height: 50,
+            //width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: imageList.asMap().entries.map((entry){
-                print(entry);
-                print(entry.key);
-                return GestureDetector(
-                  onTap: () => carouselController.animateToPage(entry.key),
-                  child: Container(
-                    width: currentIndex == entry.key ? 21 : 7,
-                    height: 6.0,
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 3.0,
-                      vertical: 16.0,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: currentIndex == entry.key
-                        ? Colors.deepOrange
-                          : Colors.grey),
-                    ),
-                  );
-              }).toList(),
-            ),
-          ),*/
-        ],
-      ),*/
+              children: const <Widget>[
+                SizedBox(
+                  width: 370,
+                  child: Text(
+                    'Categorías',
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  ),
 
+                ),
+              ],
+            ),
+          ),
+
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                    height: 128,
+                    width: 380,
+                    child: CategoriesList(),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 50,
+            //width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <Widget>[
+                SizedBox(
+                  width: 370,
+                  child: Text(
+                    'Productos destacados',
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                    height: 225,
+                    width: 380,
+                    child: HorizontalList()
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 50,
+            //width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <Widget>[
+                SizedBox(
+                  width: 370,
+                  child: Text(
+                    'Productos',
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //HorizontalList(),
+        ],
+      ),
 //------------------------------------ MENU ---------------------------------//
       drawer: Drawer(
         child: ListView(
@@ -236,6 +265,16 @@ class _HomePageState extends State<HomePage>{
               child: const ListTile(
                 title: Text('Acerca de'),
                 leading: Icon(Icons.help, color: Colors.orange),
+              ),
+            ),
+
+            InkWell(
+              onTap: (){
+                signout();
+              },
+              child: const ListTile(
+                title: Text('Cerrar sesión'),
+                leading: Icon(Icons.logout, color: Colors.deepOrange),
               ),
             ),
           ],
