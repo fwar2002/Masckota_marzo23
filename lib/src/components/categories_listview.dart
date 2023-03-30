@@ -47,6 +47,7 @@ class CategoriesList extends StatelessWidget{
                               const SizedBox(height: 3),
                               Text(
                                 'Perros',
+                                
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 13,
