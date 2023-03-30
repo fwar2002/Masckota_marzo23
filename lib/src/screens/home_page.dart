@@ -115,7 +115,28 @@ class _HomePageState extends State<HomePage>{
               ],
             ),
           ),
+
           const SizedBox(height: 10),
+
+          SizedBox(
+            height: 50,
+            //width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <Widget>[
+                SizedBox(
+                  width: 370,
+                  child: Text(
+                    'Categorías',
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  ),
+
+                ),
+              ],
+            ),
+          ),
+          
+
           SizedBox(
             width: double.infinity,
             child: Column(
