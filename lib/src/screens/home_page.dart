@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:masckota_v2/src/components/categories_listview.dart';
+import 'package:masckota_v2/src/components/categories_vert_listview_.dart';
 import 'package:masckota_v2/src/screens/register_page.dart';
 import 'package:masckota_v2/src/screens/login_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -114,24 +115,7 @@ class _HomePageState extends State<HomePage>{
               ],
             ),
           ),
-          SizedBox(
-            height: 50,
-            //width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                SizedBox(
-                  width: 370,
-                  child: Text(
-                    'Categorías',
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
-
-                ),
-              ],
-            ),
-          ),
-          
+          const SizedBox(height: 10),
           SizedBox(
             width: double.infinity,
             child: Column(
@@ -170,13 +154,14 @@ class _HomePageState extends State<HomePage>{
                 SizedBox(
                     height: 225,
                     width: 380,
-                    child: HorizontalList()
+                    child: HorizontalList(documentId: '',)
                 ),
               ],
             ),
           ),
+          const SizedBox(height: 12),
           SizedBox(
-            height: 50,
+            height: 20,
             //width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -184,9 +169,23 @@ class _HomePageState extends State<HomePage>{
                 SizedBox(
                   width: 370,
                   child: Text(
-                    'Productos',
+                    'Categorías',
                     style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
+                ),
+              ],
+            ),
+          ),
+          //const SizedBox(height: 3),
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 100,
+                  width: 380,
+                  child: CategoriesVerticalList(),
                 ),
               ],
             ),

@@ -58,9 +58,9 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             SizedBox(
+                height: kToolbarHeight + 25,
                 child: AppBar(
-                    elevation: 0, backgroundColor: Colors.transparent),
-                height: kToolbarHeight + 25),
+                    elevation: 0, backgroundColor: Colors.transparent)),
 
             Center(
               child: SingleChildScrollView(

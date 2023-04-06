@@ -1,12 +1,100 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class HorizontalList extends StatelessWidget{
+  late final String documentId;
+
+
+
+  /*Future getDocId() async {
+    await FirebaseFirestore.instance.collection('product').get().then(
+            (snapshot) => snapshot.docs.forEach((document) {
+          print(document.reference);
+          docIDs.add(document.reference.id);
+        }
+        ));
+  }*/
+
+  HorizontalList({super.key, required this.documentId});
+
   @override
   Widget build(BuildContext context){
+    CollectionReference product = FirebaseFirestore.instance.collection('product');
     return Container(
       height: 260.0,
+      /*child: FutureBuilder(
+        future: product.doc(documentId).get(),
+        builder: ((context, snapshot){
+          if(snapshot.connectionState == ConnectionState.done){
+            Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+            return  ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: docIDs.length,
+              itemBuilder: (context, index){
+                return Card(
+                  elevation: 1,
+                  shadowColor: Colors.black,
+            //color: Colors.deepOrangeAccent[100],
+                  child: Container(
+                    height: 250,
+                    width: 175,
+                    child: Column(
+                      children: <Widget>[
+                      const SizedBox(
+                      height: 5,
+                      ),
+                      Container(
+                        height: 140,
+                        width: 150,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('lib/src/assets/images/categories/dog_chow.png'),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      RatingBar.builder(
+                        initialRating: 4,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        itemCount: 5,
+                        itemSize: 16,
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 4),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: Colors.deepOrangeAccent,
+                        ),
+                        onRatingUpdate: (index){},
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                      docIDs[index],
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      const Text(
+                          '\$ 10.0',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: Colors.deepOrange,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          };
+          return Text('Cargando...');
+        }),
+      ),*/
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
