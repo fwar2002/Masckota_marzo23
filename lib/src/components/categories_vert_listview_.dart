@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class CategoriesVerticalList extends StatelessWidget{
-  const CategoriesVerticalList({super.key});
+  //const CategoriesVerticalList({super.key});
 
   @override
   Widget build(BuildContext context){
