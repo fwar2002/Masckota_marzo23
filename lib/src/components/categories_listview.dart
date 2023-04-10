@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-
 class CategoriesList extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -264,4 +263,3 @@ class CategoriesList extends StatelessWidget{
     );
   }
 }
-
