@@ -263,3 +263,4 @@ class CategoriesList extends StatelessWidget{
     );
   }
 }
+
