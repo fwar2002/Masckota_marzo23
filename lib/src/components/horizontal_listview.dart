@@ -2,14 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HorizontalList extends StatelessWidget{
+  final pet = FirebaseAuth.instance.currentUser!;
   late final String documentId;
 
+  List<String> docIDs = [];
 
-
-  /*Future getDocId() async {
-    await FirebaseFirestore.instance.collection('product').get().then(
+ /*Future getDocId() async {
+    await FirebaseFirestore.instance.collection('pet').get().then(
             (snapshot) => snapshot.docs.forEach((document) {
           print(document.reference);
           docIDs.add(document.reference.id);
@@ -17,15 +19,24 @@ class HorizontalList extends StatelessWidget{
         ));
   }*/
 
+  Future getDocId() async{
+    FirebaseFirestore.instance.collection('pet').get().then(
+            (snapshot) => snapshot.docs.forEach((element) {
+          print(element.reference);
+          docIDs.add(element.reference.id);
+        })
+    );
+  }
+
   HorizontalList({super.key, required this.documentId});
 
   @override
   Widget build(BuildContext context){
-    CollectionReference product = FirebaseFirestore.instance.collection('product');
+    //CollectionReference product = FirebaseFirestore.instance.collection('pet');
     return Container(
       height: 260.0,
-      /*child: FutureBuilder(
-        future: product.doc(documentId).get(),
+      child: FutureBuilder(
+        future: getDocId(),
         builder: ((context, snapshot){
           if(snapshot.connectionState == ConnectionState.done){
             Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
@@ -94,8 +105,8 @@ class HorizontalList extends StatelessWidget{
           };
           return Text('Cargando...');
         }),
-      ),*/
-      child: ListView(
+      ),
+      /*child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
           Card(
@@ -323,7 +334,7 @@ class HorizontalList extends StatelessWidget{
             ),
           ),
         ],
-      ),
+      ),*/
     );
   }
 }

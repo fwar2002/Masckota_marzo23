@@ -30,13 +30,13 @@ class _HomePageState extends State<HomePage>{
   final CarouselController carouselController = CarouselController();
   int currentIndex = 0;
 
-  @override
+  /*@override
   void iniState(){
     super.initState();
     Future.delayed(const Duration(seconds: 3)).then((value){
       /*Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (ctx) => Home()));*/
     });
-  }
+  }*/
 
   @override
   void signout(){
