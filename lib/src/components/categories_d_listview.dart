@@ -9,6 +9,7 @@ import 'dart:math';
 import '../screens/detail_page.dart';
 import 'package:masckota_v2/src/components/get_category_l1_entity.dart';
 
+
 class Categoriesd_List extends StatelessWidget{
   final dynamic idCategory;
 

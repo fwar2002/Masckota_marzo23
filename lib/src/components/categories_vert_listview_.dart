@@ -58,6 +58,7 @@ class CategoriesVerticalList extends StatelessWidget{
                         ),
                       ),
                     ),
+
                     Card(
                       elevation: 0,
                       shadowColor: Colors.black,

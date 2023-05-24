@@ -79,6 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                               }
                               return null;
                             },
+
                             decoration: const InputDecoration(
                               labelText: "Correo electrónico",
                               hintText: "Ingrese su correo electrónico",

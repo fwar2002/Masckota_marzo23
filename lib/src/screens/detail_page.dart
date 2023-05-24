@@ -101,7 +101,6 @@ class _DetailPageState extends State<DetailPage>{
           ),
         ],
       ),
-
       body: ListView(
         children:  <Widget>[
           //const SizedBox(height: 10),
