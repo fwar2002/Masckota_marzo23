@@ -10,22 +10,24 @@ import 'package:masckota_v2/src/components/horizontal_listview.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../components/categories_d_listview.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({key}) : super(key: key);
+class DetailPage extends StatefulWidget {
+  final dynamic idCategory;
+
+  const DetailPage({Key? key, this.idCategory});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _DetailPageState createState() => _DetailPageState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _DetailPageState extends State<DetailPage>{
   List imageList = [
     {"id": 1, "image_path": 'lib/src/assets/images/carousel_one.jpg'},
     {"id": 2, "image_path": 'lib/src/assets/images/carousel_two.jpg'},
     {"id": 3, "image_path": 'lib/src/assets/images/carousel_three.jpg'},
     {"id": 4, "image_path": 'lib/src/assets/images/carousel_four.jpg'}
   ];
-
 
   final CarouselController carouselController = CarouselController();
   int currentIndex = 0;
@@ -47,6 +49,14 @@ class _HomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context){
+    final data = ModalRoute.of(context)!.settings;
+    late String retriveString;
+
+    if (data.arguments == null)
+      retriveString = "empty";
+    else
+      retriveString = data.arguments as String;
+
     Widget imageCarousel = CarouselSlider(
       items: imageList.map((item) => Image.asset(
         item['image_path'],
@@ -77,13 +87,13 @@ class _HomePageState extends State<HomePage>{
         //title: const Text('Masckota APP'),
         actions: <Widget>[
           IconButton(
-              onPressed: (){
-                showSearch(
-                    context: context,
-                    delegate: CustomSearchDelegate(),
-                );
-              },
-              icon: Icon(Icons.search, color: Colors.deepOrange),
+            onPressed: (){
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(),
+              );
+            },
+            icon: Icon(Icons.search, color: Colors.deepOrange),
           ),
           IconButton(
               onPressed: (){},
@@ -94,63 +104,20 @@ class _HomePageState extends State<HomePage>{
 
       body: ListView(
         children:  <Widget>[
-          SizedBox(
-            height: 195,
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  width: 385,
-                  child: imageCarousel,
-                  /*child: TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search),
-                      hintText: 'Buscar',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),*/
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 10),
-
-          SizedBox(
-            height: 50,
-            //width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                SizedBox(
-                  width: 370,
-                  child: Text(
-                    'Categorías',
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
-
-                ),
-              ],
-            ),
-          ),
-          
-
+          //const SizedBox(height: 10),
           SizedBox(
             width: double.infinity,
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                    height: 155,
-                    width: 380,
-                    child: CategoriesList(),
+                  height: 160,
+                  width: 380,
+                  child: Categoriesd_List(idCategory: '$retriveString',),
                 ),
               ],
             ),
-          ),
+          ),/*,
           SizedBox(
             height: 50,
             //width: double.infinity,
@@ -166,9 +133,12 @@ class _HomePageState extends State<HomePage>{
                 ),
               ],
             ),
-          ),
-
+          ),*/
           SizedBox(
+            width: 50,
+            child: Text('$retriveString'),
+          ),
+          /*SizedBox(
             width: double.infinity,
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.center,
@@ -181,7 +151,7 @@ class _HomePageState extends State<HomePage>{
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 20),*/
           /*SizedBox(
             height: 20,
             //width: double.infinity,
@@ -216,91 +186,7 @@ class _HomePageState extends State<HomePage>{
         ],
       ),
 //------------------------------------ MENU ---------------------------------//
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-//Header
-            UserAccountsDrawerHeader(
-                accountName: Text('Francisco Guerra'),
-                accountEmail: Text('guerra.fran@gmail.com'),
-              currentAccountPicture: GestureDetector(
-                child: const CircleAvatar(
-                  backgroundColor: Colors.grey,
-                  child: Icon(Icons.person, color: Colors.white),
-                ),
-              ),
-              decoration: const BoxDecoration(
-                color: Colors.deepOrange,
-              ),
-            ),
-//Body
-            InkWell(
-              onTap: (){},
-              child: const ListTile(
-                  title: Text('Página principal'),
-                  leading: Icon(Icons.home, color: Colors.black),
-              ),
-            ),
-            InkWell(
-              onTap: (){},
-              child: const ListTile(
-                title: Text('Mi cuenta'),
-                leading: Icon(Icons.person),
-              ),
-            ),
-            InkWell(
-              onTap: (){},
-              child: const ListTile(
-                title: Text('Categorías'),
-                leading: Icon(Icons.dashboard),
-              ),
-            ),
-            InkWell(
-              onTap: (){},
-              child: const ListTile(
-                title: Text('Favoritos'),
-                leading: Icon(Icons.favorite, color: Colors.red),
-              ),
-            ),
 
-            const Divider(),
-
-            InkWell(
-              onTap: (){},
-              child: const ListTile(
-                title: Text('Registra tu negocio'),
-                leading: Icon(Icons.add_business),
-              ),
-            ),
-
-            InkWell(
-              onTap: (){},
-              child: const ListTile(
-                title: Text('Configuración'),
-                leading: Icon(Icons.settings),
-              ),
-            ),
-
-            InkWell(
-              onTap: (){},
-              child: const ListTile(
-                title: Text('Acerca de'),
-                leading: Icon(Icons.help, color: Colors.orange),
-              ),
-            ),
-
-            InkWell(
-              onTap: (){
-                signout();
-              },
-              child: const ListTile(
-                title: Text('Cerrar sesión'),
-                leading: Icon(Icons.logout, color: Colors.deepOrange),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -323,10 +209,10 @@ class CustomSearchDelegate extends SearchDelegate{
   List<Widget> buildActions(BuildContext context){
     return[
       IconButton(
-          onPressed: (){
-            query = '';
-          },
-          icon: Icon(Icons.clear),
+        onPressed: (){
+          query = '';
+        },
+        icon: Icon(Icons.clear),
       ),
     ];
   }
@@ -334,10 +220,10 @@ class CustomSearchDelegate extends SearchDelegate{
   @override
   Widget buildLeading(BuildContext context){
     return IconButton(
-        onPressed: (){
-          close(context, null);
-        },
-        icon: Icon(Icons.arrow_back),
+      onPressed: (){
+        close(context, null);
+      },
+      icon: Icon(Icons.arrow_back),
     );
   }
 
@@ -351,13 +237,13 @@ class CustomSearchDelegate extends SearchDelegate{
       }
     }
     return ListView.builder(
-        itemCount: matchQuery.length,
-        itemBuilder: (context, index){
-          var result = matchQuery[index];
-          return ListTile(
-            title: Text(result),
-          );
-        },
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index){
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
     );
   }
 
